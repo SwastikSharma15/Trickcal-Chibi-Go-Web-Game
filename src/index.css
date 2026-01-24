@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+/* Ensure full-screen coverage and remove default margins */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Prevent text selection and context menus for better UX */
+body {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Disable right-click context menu */
+video {
+  pointer-events: none;
+}
+
+/* Ensure videos cover properly on all devices */
+video {
+  width: 100vw !important;
+  height: 100vh !important;
+  object-fit: cover;
+}
