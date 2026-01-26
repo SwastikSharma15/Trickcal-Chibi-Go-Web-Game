@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 
 const App = () => {
   const [isSlapActive, setIsSlapActive] = useState(false)
@@ -411,6 +412,9 @@ const App = () => {
           </div>
         </div>
       </div>
+
+      {/* Vercel Web Analytics */}
+      <Analytics />
 
     </div>
   )
