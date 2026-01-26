@@ -32,3 +32,64 @@ video {
   height: 100vh !important;
   object-fit: cover;
 }
+
+/* Music indicator animation */
+.indicator-line {
+  width: 5px;
+  height: 7px;
+  margin-left: 2px;
+  margin-top: 10px;
+  border-radius: 99px;
+  background-color: black;
+}
+
+/* Mobile responsive indicator lines - only for small screens */
+@media (max-width: 640px) {
+  .indicator-line {
+    width: 2px;
+    height: 4px;
+    margin-left: 1px;
+    margin-top: 6px;
+  }
+}
+
+/* Active animation */
+.indicator-line.active {
+  opacity: 1;
+  animation: indicator-line 0.5s ease infinite;
+  animation-delay: calc(var(--animation-order) * 0.1s);
+}
+
+/* Animation keyframes - default for desktop */
+@keyframes indicator-line {
+  0% {
+    height: 6px;
+    transform: translateY(0);
+  }
+  50% {
+    height: 20px;
+    transform: translateY(-6px);
+  }
+  100% {
+    height: 6px;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile responsive animation - only for small screens */
+@media (max-width: 640px) {
+  @keyframes indicator-line {
+    0% {
+      height: 4px;
+      transform: translateY(0);
+    }
+    50% {
+      height: 12px;
+      transform: translateY(-4px);
+    }
+    100% {
+      height: 4px;
+      transform: translateY(0);
+    }
+  }
+}
