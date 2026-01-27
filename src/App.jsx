@@ -303,7 +303,8 @@ const App = () => {
         </div>
         {/* Mobile text - only visible on mobile */}
         <div className="block sm:hidden text-xl font-black mb-4 tracking-widest drop-shadow-2xl italic">
-          TAP ANYWHERE TO WAKE NER UP!
+          <span className="block">TAP ANYWHERE TO</span>
+          <span className="block">WAKE NER UP!</span>
         </div>
         <div className="text-lg sm:text-2xl font-extrabold drop-shadow-xl italic">
           Spikip: {clickCount.toLocaleString()}
@@ -312,7 +313,7 @@ const App = () => {
 
       {/* Music Toggle Button - Top Right */}
       <button
-        className="absolute top-4 right-4 z-80 flex items-center space-x-2 sm:space-x-1 p-6 sm:p-3 rounded-lg transition-all"
+        className="absolute top-8 sm:top-4 right-4 z-80 flex items-center space-x-2 sm:space-x-1 p-6 sm:p-3 rounded-lg transition-all"
         onClick={toggleMusic}
       >
         {[1, 2, 3, 4, 5].map((bar) => (
