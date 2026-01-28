@@ -2,7 +2,7 @@
 
 A hilarious interactive web game where you wake up a sleepy Ner with epic slaps! Built for pure entertainment and good vibes.
 
-![Trickal Game Preview](./img/meta.png)
+![Trickal Game Preview](./public/img/meta.png)
 
 ## 🚀 Live Demo
 
@@ -54,11 +54,11 @@ trickal/
 │   │   ├── vdo_slap_full.mp4  # Full slap animation
 │   │   ├── vdo_slap1.mp4      # Quick slap 1
 │   │   └── vdo_slap2.mp4      # Quick slap 2
-│   ├── img/             # Image assets
-│   │   ├── arm1.png     # Animation frame 1
-│   │   ├── img2.png     # Animation frame 2
-│   │   └── arm3.png     # Animation frame 3
-│   └── meta.png         # Social media preview image
+│   └── img/             # Image assets
+│       ├── arm1.png     # Animation frame 1
+│       ├── img2.png     # Animation frame 2
+│       ├── arm3.png     # Animation frame 3
+│       └── meta.png     # Social media preview image
 ├── src/
 │   ├── App.jsx          # Main game component
 │   ├── main.jsx         # React entry point
