@@ -8,12 +8,15 @@ const App = () => {
   const [currentFlashFrame, setCurrentFlashFrame] = useState(0)
   const [clickCount, setClickCount] = useState(0)
   const [musicActive, setMusicActive] = useState(false)
+  const [bgMusicActive, setBgMusicActive] = useState(true) // Background music enabled by default
+  const [hasInteracted, setHasInteracted] = useState(false) // Track if user has interacted
   const [creditsOpen, setCreditsOpen] = useState(false)
 
   const loopVideoRef = useRef(null)
   const slapVideoRef = useRef(null)
   const audioRefs = useRef([])
   const musicRef = useRef(null)
+  const bgMusicRef = useRef(null) // Background music reference
   const lastInteractionTime = useRef(0)
   const flashTimeoutRef = useRef(null)
   const frameSequenceTimeoutRef = useRef(null)
@@ -47,10 +50,19 @@ const App = () => {
     musicRef.current.loop = true
     musicRef.current.volume = 0.5
 
+    // Initialize background music
+    bgMusicRef.current = new Audio('/audio/bg_music.mp3')
+    bgMusicRef.current.loop = true
+    bgMusicRef.current.volume = 0.3 // Lower volume for background music
+
     return () => {
       if (musicRef.current) {
         musicRef.current.pause()
         musicRef.current.currentTime = 0
+      }
+      if (bgMusicRef.current) {
+        bgMusicRef.current.pause()
+        bgMusicRef.current.currentTime = 0
       }
     }
   }, [])
@@ -66,6 +78,27 @@ const App = () => {
       setMusicActive(!musicActive)
     }
   }, [musicActive])
+
+  // Handle background music toggle
+  const toggleBgMusic = useCallback(() => {
+    if (bgMusicRef.current) {
+      if (bgMusicActive) {
+        bgMusicRef.current.pause()
+      } else if (hasInteracted) {
+        // Only play if user has already interacted
+        bgMusicRef.current.play().catch(console.error)
+      }
+      setBgMusicActive(!bgMusicActive)
+    }
+  }, [bgMusicActive, hasInteracted])
+
+  // Start background music on first interaction
+  const startBgMusic = useCallback(() => {
+    if (bgMusicRef.current && bgMusicActive && !hasInteracted) {
+      bgMusicRef.current.play().catch(console.error)
+      setHasInteracted(true)
+    }
+  }, [bgMusicActive, hasInteracted])
 
   // Handle fullscreen toggle
   const toggleFullscreen = useCallback(() => {
@@ -129,6 +162,9 @@ const App = () => {
     const currentTime = Date.now()
     const timeSinceLastInteraction = currentTime - lastInteractionTime.current
 
+    // Start background music on first interaction
+    startBgMusic()
+
     // Increment click counter
     setClickCount(prev => prev + 1)
 
@@ -182,7 +218,7 @@ const App = () => {
     }
 
     lastInteractionTime.current = currentTime
-  }, [playRandomSlapSound])
+  }, [playRandomSlapSound, startBgMusic])
 
   // Handle slap video end
   const handleSlapVideoEnd = useCallback(() => {
@@ -313,7 +349,7 @@ const App = () => {
 
       {/* Music Toggle Button - Top Right */}
       <button
-        className="absolute top-8 sm:top-4 right-4 z-80 flex items-center space-x-2 sm:space-x-1 p-6 sm:p-3 rounded-lg transition-all"
+        className="absolute top-8 sm:top-4 right-16 sm:right-12 z-80 flex items-center space-x-2 sm:space-x-1 p-6 sm:p-3 rounded-lg transition-all"
         onClick={toggleMusic}
       >
         {[1, 2, 3, 4, 5].map((bar) => (
@@ -323,6 +359,31 @@ const App = () => {
             style={{ "--animation-order": bar }}
           />
         ))}
+      </button>
+
+      {/* Background Music Mute/Unmute Button - Top Right (right of music button) */}
+      <button
+        className="absolute top-8 sm:top-4 right-4 z-80 p-3 sm:p-2 rounded-lg transition-all text-black"
+        onClick={toggleBgMusic}
+        title={bgMusicActive ? "Mute background music" : "Unmute background music"}
+      >
+        {bgMusicActive ? (
+          // Musical note icon (unmuted)
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="sm:w-6 sm:h-6">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+          </svg>
+        ) : (
+          // Musical note with line through it (muted)
+          <div className="relative">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="sm:w-6 sm:h-6">
+              <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+            </svg>
+            {/* Diagonal line through the note */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-6 h-0.5 bg-black transform rotate-45"></div>
+            </div>
+          </div>
+        )}
       </button>
 
       {/* Fullscreen Button - Bottom Right */}
