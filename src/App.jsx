@@ -343,7 +343,7 @@ const App = () => {
           <span className="block">WAKE NER UP!</span>
         </div>
         <div className="text-lg sm:text-2xl font-extrabold drop-shadow-xl italic">
-          Spikip: {clickCount.toLocaleString()}
+          Supikip: {clickCount.toLocaleString()}
         </div>
       </div>
 
@@ -363,7 +363,7 @@ const App = () => {
 
       {/* Background Music Mute/Unmute Button - Top Right (right of music button) */}
       <button
-        className="absolute top-8 sm:top-4 right-4 z-80 p-3 sm:p-2 rounded-lg transition-all text-black hover:bg-white hover:bg-opacity-20"
+        className="absolute top-8 sm:top-4 right-4 z-80 p-3 sm:p-2 rounded-lg transition-all text-black"
         onClick={toggleBgMusic}
         title={bgMusicActive ? "Mute background music" : "Unmute background music"}
       >
