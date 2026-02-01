@@ -347,6 +347,13 @@ const App = () => {
         </div>
       </div>
 
+      {/* Hidden SEO content for search engines */}
+      <div className="sr-only">
+        <h1>Ner Slap Game - Trickal Ner Interactive Experience</h1>
+        <p>Play the ultimate ner slap game! Slap ner to wake them up in this fun trickal ner adventure. Interactive slap ner gameplay with sound effects and animations.</p>
+        <p>Keywords: ner slap, slap ner, trickal ner, wake up ner, ner game, slap game</p>
+      </div>
+
       {/* Music Toggle Button - Top Right */}
       <button
         className="absolute top-8 sm:top-4 right-16 sm:right-12 z-80 flex items-center space-x-2 sm:space-x-1 p-6 sm:p-3 rounded-lg transition-all"
