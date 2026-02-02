@@ -349,7 +349,9 @@ const App = () => {
 
       {/* Hidden SEO content for search engines */}
       <div className="sr-only">
-        <h1>Ner Slap Game - Trickal Ner Interactive Experience</h1>
+        <h1>Trickal Ner Slap Game</h1>
+        <p>Trickal Ner Slap is a fun interactive browser game where you wake up Ner with playful slaps, music, and animations.</p>
+        <p>Click or tap anywhere to play instantly. No downloads required.</p>
         <p>Play the ultimate ner slap game! Slap ner to wake them up in this fun trickal ner adventure. Interactive slap ner gameplay with sound effects and animations.</p>
         <p>Keywords: ner slap, slap ner, trickal ner, wake up ner, ner game, slap game</p>
       </div>
