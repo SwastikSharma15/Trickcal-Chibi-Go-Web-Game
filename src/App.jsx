@@ -6,7 +6,18 @@ const App = () => {
   const [slapVideoKey, setSlapVideoKey] = useState(0)
   const [flashFrame, setFlashFrame] = useState(false)
   const [currentFlashFrame, setCurrentFlashFrame] = useState(0)
-  const [clickCount, setClickCount] = useState(0)
+  // Load click count from localStorage using lazy initializer
+  const [clickCount, setClickCount] = useState(() => {
+    const savedCount = localStorage.getItem('slapClickCount')
+    console.log('Loading saved count:', savedCount)
+    if (savedCount && savedCount !== 'null') {
+      const parsedCount = parseInt(savedCount, 10)
+      if (!isNaN(parsedCount)) {
+        return parsedCount
+      }
+    }
+    return 0
+  })
   const [musicActive, setMusicActive] = useState(false)
   const [bgMusicActive, setBgMusicActive] = useState(true) // Background music enabled by default
   const [hasInteracted, setHasInteracted] = useState(false) // Track if user has interacted
@@ -24,18 +35,6 @@ const App = () => {
   // Spam detection settings
   const SPAM_THRESHOLD = 200 // milliseconds - if interactions are faster than this, use flash
   const FRAME_DURATION = 35 // milliseconds - duration for each frame in sequence
-
-  // Load click count from localStorage on mount
-  useEffect(() => {
-    const savedCount = localStorage.getItem('slapClickCount')
-    console.log('Loading saved count:', savedCount)
-    if (savedCount && savedCount !== 'null') {
-      const parsedCount = parseInt(savedCount, 10)
-      if (!isNaN(parsedCount)) {
-        setClickCount(parsedCount)
-      }
-    }
-  }, [])
 
   // Save click count to localStorage whenever it changes
   useEffect(() => {
